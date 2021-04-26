@@ -1,0 +1,38 @@
+{
+  "pages": [
+    "pages/component/Message",
+    "pages/component/CommitQuestion",
+    "pages/component/UserInfo"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "绿化管理系统",
+    "navigationBarBackgroundColor": "#00aaff",
+    "backgroundColor": "#F8F8F8",
+    "backgroundTextStyle": "light"
+  },
+  "tabBar": {
+    "list": [
+      {
+        "text": "区域信息",
+        "pagePath": "pages/component/Message",
+        "iconPath": "./static/info.png",
+        "selectedIconPath": "static/info-active.png"
+      },
+      {
+        "text": "问题上传",
+        "pagePath": "pages/component/CommitQuestion",
+        "iconPath": "./static/commit.png",
+        "selectedIconPath": "static/commit-active.png"
+      },
+      {
+        "text": "用户信息",
+        "pagePath": "pages/component/UserInfo",
+        "iconPath": "./static/user.png",
+        "selectedIconPath": "static/user-active.png"
+      }
+    ]
+  },
+  "usingComponents": {}
+}

@@ -1,0 +1,8 @@
+
+uni-list-item {
+	display: block;
+	height: 78rpx;
+	line-height: 78rpx;
+	box-sizing: border-box;
+}
+

@@ -1,0 +1,1 @@
+<view class="warpper"><text class="head">请输入问题描述：</text><textarea></textarea><button type="warn">问题上报</button></view>

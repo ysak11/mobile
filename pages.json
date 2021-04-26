@@ -1,0 +1,60 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path":"pages/component/Message",
+			"sytle": {
+				"enablePullDownRefresh": true
+			}
+			
+		},
+		{
+			"path":"pages/component/CommitQuestion"
+		},
+		{
+			"path":"pages/component/UserInfo"
+		}
+		// {
+		// 	"path":"pages/component/Detail"
+		// }
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "#fff",
+		"navigationBarTitleText": "绿化管理系统",
+		"navigationBarBackgroundColor": "#00aaff",
+		"backgroundColor": "#F8F8F8",
+
+		"backgroundTextStyle": "light"
+	},
+	"tabBar":{
+		"list":[
+			{
+				"text":"区域信息",
+				"pagePath":"pages/component/Message",
+				"iconPath":"./static/info.png",
+				"selectedIconPath":"static/info-active.png"
+			},
+			{
+				"text":"问题上传",
+				"pagePath":"pages/component/CommitQuestion",
+				"iconPath":"./static/commit.png",
+				"selectedIconPath":"static/commit-active.png"
+			},
+			{
+				"text":"用户信息",
+				"pagePath":"pages/component/UserInfo",
+				"iconPath":"./static/user.png",
+				"selectedIconPath":"static/user-active.png"
+			}
+		]
+	}
+	// "condition": {
+	// 	"current": 0,
+	// 	"list": [
+	// 		{
+	// 			"name": "详情页",
+	// 			"path": "pages/component/Detail",
+	// 			"query":"id=80"
+	// 		}
+	// 	]
+	// }
+}
