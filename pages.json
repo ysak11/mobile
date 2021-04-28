@@ -1,11 +1,15 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
-			"path":"pages/component/Message",
-			"sytle": {
-				"enablePullDownRefresh": true
+			"path":"pages/component/Login",
+			"style": {
+				// "navigationBarTitleText": "",
+				// "navigationBarBackgroundColor": "transparent",
+				"navigationStyle":"custom"
 			}
-			
+		},
+		{
+			"path":"pages/component/Message"
 		},
 		{
 			"path":"pages/component/CommitQuestion"
@@ -18,11 +22,10 @@
 		// }
 	],
 	"globalStyle": {
-		"navigationBarTextStyle": "#fff",
+		// "navigationBarTextStyle": "#ffffff",
 		"navigationBarTitleText": "绿化管理系统",
 		"navigationBarBackgroundColor": "#00aaff",
 		"backgroundColor": "#F8F8F8",
-
 		"backgroundTextStyle": "light"
 	},
 	"tabBar":{
