@@ -1,6 +1,7 @@
 import {
 	UPDATE_AREA_INFO,
-	UPDATE_USER_INFO
+	UPDATE_USER_INFO,
+	UPDATE_MESSAGE_INFO
 } from './mutation-type.js'
 
 export default {
@@ -12,5 +13,10 @@ export default {
 	//更新用户信息
 	[UPDATE_USER_INFO] (state, user) {
 		state.userInfo = user;
+	},
+	
+	//更新信息列表
+	[UPDATE_MESSAGE_INFO] (state, list) {
+		state.messageList = list;
 	}
 }

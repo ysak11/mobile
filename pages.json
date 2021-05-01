@@ -3,26 +3,56 @@
 		{
 			"path":"pages/component/Login",
 			"style": {
-				// "navigationBarTitleText": "",
-				// "navigationBarBackgroundColor": "transparent",
 				"navigationStyle":"custom"
 			}
 		},
 		{
-			"path":"pages/component/Message"
+			"path":"pages/Map"
 		},
 		{
-			"path":"pages/component/CommitQuestion"
+			"path":"pages/Message"
 		},
 		{
-			"path":"pages/component/UserInfo"
+			"path":"pages/CommitQuestion"
+		},
+		{
+			"path":"pages/UserInfo",
+			"style": {
+				"backgroundColor": "#f0f0f0"
+			}
+		},
+		{
+			"path":"pages/component/Modify",
+			"style": {
+				"navigationBarTitleText": "修改密码"
+			}
+		},
+		{
+			"path":"pages/component/Task",
+			"style": {
+				"navigationBarTitleText": "任务记录"
+			}
+		},
+		{
+			"path":"pages/component/Recent",
+			"style": {
+				"navigationBarTitleText": "最近动态"
+			}
+		},
+		{
+			"path":"pages/component/NowTask",
+			"style": {
+				"navigationBarTitleText": "当前任务"
+			}
+		},
+		{
+			"path":"pages/component/Submit",
+			"style": {
+				"navigationBarTitleText": "问题上报"
+			}
 		}
-		// {
-		// 	"path":"pages/component/Detail"
-		// }
 	],
 	"globalStyle": {
-		// "navigationBarTextStyle": "#ffffff",
 		"navigationBarTitleText": "绿化管理系统",
 		"navigationBarBackgroundColor": "#00aaff",
 		"backgroundColor": "#F8F8F8",
@@ -31,20 +61,26 @@
 	"tabBar":{
 		"list":[
 			{
+				"text":"地图",
+				"pagePath":"pages/Map",
+				"iconPath":"./static/map.png",
+				"selectedIconPath":"static/map-active.png"
+			},
+			{
 				"text":"区域信息",
-				"pagePath":"pages/component/Message",
+				"pagePath":"pages/Message",
 				"iconPath":"./static/info.png",
 				"selectedIconPath":"static/info-active.png"
 			},
 			{
 				"text":"问题上传",
-				"pagePath":"pages/component/CommitQuestion",
+				"pagePath":"pages/CommitQuestion",
 				"iconPath":"./static/commit.png",
 				"selectedIconPath":"static/commit-active.png"
 			},
 			{
 				"text":"用户信息",
-				"pagePath":"pages/component/UserInfo",
+				"pagePath":"pages/UserInfo",
 				"iconPath":"./static/user.png",
 				"selectedIconPath":"static/user-active.png"
 			}

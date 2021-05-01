@@ -26,7 +26,7 @@
 </template>
 
 <script>
-	import {reqLogin} from '@/api';
+	import {reqLogin, reqUserInfo} from '@/api';
 	import {UPDATE_USER_INFO} from '@/store/mutation-type';
 	
 	export default {
@@ -41,17 +41,16 @@
 		onLoad() {
 			//查看是否已经登录过
 			uni.getStorage({
-			    key: 'userId',
+			    key: 'userInfo',
 			    success: function (res) {
 						//已经登录过则直接跳转到区域页面
 			      uni.switchTab({
-			          url: '/pages/component/Message'
+			          url: '/pages/Map'
 			      });
 			    }
 			});
 		},
 		methods: {
-
 			//点击登录按钮
 			async loginClick() {
 				let username = this.username.trim();
@@ -60,7 +59,7 @@
 				if(username && password) {
 					let result = await reqLogin(username, password);
 					result = result.data;
-					if(result.status === 0) {
+					if(result.status === 0 && result.data.permission >= 2) {
 						this.warn = '';
 						//把用户信息保存到vuex
 						this.$store.commit(UPDATE_USER_INFO, result.data);
@@ -70,8 +69,8 @@
 						});
 						//本地存储用户信息
 						uni.setStorage({
-						    key: 'userId',
-						    data: result.data._id
+						    key: 'userInfo',
+						    data: result.data
 						});
 					} else {
 						this.warn = "登录失败，用户名或密码错误";
