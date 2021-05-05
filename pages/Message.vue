@@ -3,25 +3,11 @@
 		<uni-collapse accordion="true">
 		    <uni-collapse-item v-for="item in areaList"  :key="item._id"
 				:title="item.name" :showAnimation="true" :open="true">
-		       <!-- <view class="content">
-		            <view class="first">
-		            	<text>种类： {{item.type}}</text>
-									<text>具体植株： {{item.plant}}</text>
-		            </view>
-								<view class="water">
-									<text>区域水量： {{item.waterQuantity}}</text>
-									<text>预警水量： {{item.warnValue}}</text>
-								</view>
-								<view class="status">
-									<text>状态：{{item.waterQuantity >= item.warnValue ? "正常" : "异常"}}</text>
-								</view>
-		        </view> -->
-						
 						<uni-card
 						    :title="item.name" 
 						    mode="basic" 
 						    :is-shadow="true" 
-								:extra="item.waterQuantity >= item.warnValue ? '状态正常' : '状态异常'"
+								:extra="parseInt(item.waterQuantity) >= parseInt(item.warnValue) ? '状态正常' : '状态异常'"
 						>
 						    <view class="content">
 						        	<view><text>种类： </text>{{item.type}}</view>
@@ -40,25 +26,18 @@
 
 <script>
 	import {mapState} from 'vuex';
-	import {reqUserInfo} from '@/api';
+	// import {reqUserInfo} from '@/api';
 	
 	export default {
 		data() {
 			return {
-				key: 'c655296e4f6184c0cab57bbcc4395c49'				//小程序KEY
+				// key: 'c655296e4f6184c0cab57bbcc4395c49'				//小程序KEY
 			}
 		},
-		onReady() {
-			uni.getStorage({
-			    key: 'userInfo',
-					success: (res) => {
-						console.log(res)
-					}
-			});
-		},
-		mounted() {
+		created() {
+			//更新用户信息
+			this.$store.dispatch('getUserInfo');
 			//发送请求更新区域信息
-			
 			this.$store.dispatch('getAreaInfo');
 		},
 		computed: {

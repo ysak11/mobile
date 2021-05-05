@@ -29,22 +29,19 @@
 
 <script>
 	import {reqConfirm, reqModifyPassword} from '@/api'
+	import {mapState} from 'vuex';
 	
 	export default {
 		data() {
 			return {
-				userId: '',
 				oldPass: '',
 				newPass: '',
 				reNewPass: '',
 				message: ''
 			}
 		},
-		mounted() {
-			const value = uni.getStorageSync('userInfo');
-			if (value) {
-				this.userId = value._id;
-			}
+		computed: {
+			...mapState(['userInfo'])
 		},
 		methods: {
 			//修改密码
@@ -61,12 +58,11 @@
 					this.$refs.popup.open();
 				} else {
 					//确认密码是否正确
-					let result = await reqConfirm(this.userId, old);
+					let result = await reqConfirm(this.userInfo._id, old);
 					result = result.data;
-					// console.log(result);
 					
 					if(result.status === 0) {
-						await reqModifyPassword(this.userId, newOne);
+						await reqModifyPassword(this.userInfo._id, newOne);
 						this.message = '密码修改成功';
 						this.$refs.popup.open();
 						this.oldPass = '';

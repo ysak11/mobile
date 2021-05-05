@@ -1,86 +1,125 @@
 <template>
 	<view class="warpper">
-		<uni-card 
-		    title="A1" 
-		    mode="basic" 
-		    :is-shadow="true" 
-		    extra="等待处理" 
-		    
-		>
-		    uni-app 是一个使用 Vue.js 开发所有前端应用的框架
+		<uni-card v-for="item in waitList" :key="item._id"
+		:title="item.areaName" mode="basic" :is-shadow="true" extra="等待处理">
+		  {{item.message}}
 				<view class="imgContent">
-					<cover-image class="img" src="/static/1.jpg" @click="previewImg('/static/1.jpg')"></cover-image>
-					<cover-image class="img" src="/static/2.jpg"></cover-image>
-					<cover-image class="img" src="/static/3.jpg"></cover-image>
+					<img v-for="(img, index) in item.imgs" :key="index"
+					class="img" :src="img" @click="previewImg(img)"></img>
 				</view>
 				
 				<view class="accept">
-					<button type="default">接受</button>
+					<button type="default" @click="accept(item)">接受</button>
 				</view>
 		</uni-card>
 		
-		<uni-card
-		    title="A1" 
-		    mode="basic" 
-		    :is-shadow="true" 
-		    extra="等待处理" 
-		    note="Tips"
-		>
-		    uni-app 是一个使用 Vue.js 开发所有前端应用的框架，开发者编写一套代码，可编译到iOS、Android、H5、以及各种小程序等多个平台。即使不跨端，uni-app同时也是更好的小程序开发框架。
-		</uni-card>
 		
-		<uni-card
-		    title="A1" 
-		    mode="basic" 
-		    :is-shadow="true" 
-		    extra="职工test1正在处理" 
-		    note="Tips"
-		>
-		    uni-app 是一个使用 Vue.js 开发所有前端应用的框架，开发者编写一套代码，可编译到iOS、Android、H5、以及各种小程序等多个平台。即使不跨端，uni-app同时也是更好的小程序开发框架。
+		<uni-card v-for="item in solvingList" :key="item._id"
+		:title="item.areaName" mode="basic" :is-shadow="true" extra='正在处理中'>
+			{{item.message}}
+			
+			<view class="imgContent"> 
+					<cover-image v-for="img in item.imgs" :key="img"
+					class="img" :src="img" @click="previewImg(img)"></cover-image>
+			</view>
 		</uni-card>
 		
 		
 		<view class="sub" @click="naviTo('/pages/component/Submit')">上报</view>
+		
+		
+		<uni-popup ref="popup" type="dialog">
+			<uni-popup-message type="success" :message="message" :duration="2000"></uni-popup-message>
+		</uni-popup>
 	</view>
 </template>
 
 <script>
+	import { reqUpdateUser, reqUpdateMessage} from '@/api';
+	import { mapState } from 'vuex';
+	
 	export default {
 		data() {
 			return {
-				
+				message: '',				//提示信息
+			}
+		},
+		created() {
+			//更新信息和用户列表
+			this.$store.dispatch('getMessageInfo');
+			this.$store.dispatch('getUserInfo');
+		},
+		computed: {
+			...mapState(['messageList', 'userInfo']),
+			//反转列表，让最新的消息在最上面显示
+			reverseList() {
+				return this.messageList.slice().reverse();
+			},
+			//等待解决的问题列表
+			waitList() {
+				return this.reverseList.filter(item => item.status === 'waitting');
+			},
+			//正在解决的问题列表
+			solvingList() {
+				return this.reverseList.filter(item => item.status === 'solving');
 			}
 		},
 		methods: {
-			//修改密码
+			//跳转页面
 			naviTo(url) {
-				url = url + 
 				uni.navigateTo({
 					url,
 				})
 			},
 			//点击放大图片（预览）
-			previewImg(index) {
-				console.log(index)
+			previewImg(url) {
+				// console.log(url)
 				let imgArray = [];
 				
 				// 预览单张图片
-				// imgArray[0] = index;
-				// uni.previewImage({
-				// 	current:0,
-				// 	urls:imgArray
-				// })
-				
-				for(let i = 0, len = imgArray.length; i < len; i++) {
-					this.imgArray.push(this.imgList[i].imgUrl);
-				}
-				
+				imgArray[0] = url;
 				uni.previewImage({
-						current: index - 1,
-						urls: imgsArray,
-						indicator: 'number',
-						loop: true
-				});
+					current:0,
+					urls:imgArray
+				})
+				
+				// for(let i = 0, len = arr.length; i < len; i++) {
+				// 	imgArray.push(arr[i]);
+				// }
+				
+				// uni.previewImage({
+				// 		current: index - 1,
+				// 		urls: imgsArray,
+				// 		indicator: 'number',
+				// 		loop: true
+				// });
+			},
+			
+			//接受任务
+			async accept(item) {
+				if(this.userInfo.status !== 'free') {
+					this.message = '当前还有任务没有完成';
+					this.$refs.popup.open();
+				} else {
+					//改变用户状态
+					this.userInfo.status = 'working';
+					this.userInfo.solveId = item._id;
+					
+					//将问题的状态改为正在解决
+					item.status = 'solving';
+					
+					//修改数据库中的相关信息
+					await reqUpdateMessage(item);
+					await reqUpdateUser(this.userInfo);
+					
+					//更新用户信息
+					this.$store.dispatch('getUserInfo');
+					//发送请求更新区域信息
+					this.$store.dispatch('getAreaInfo');
+					
+					this.message = '任务已接受';
+					this.$refs.popup.open();
+				}
 			}
 		}
 	}

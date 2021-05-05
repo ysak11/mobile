@@ -59,13 +59,14 @@
 				if(username && password) {
 					let result = await reqLogin(username, password);
 					result = result.data;
+					console.log(result);
 					if(result.status === 0 && result.data.permission >= 2) {
 						this.warn = '';
 						//把用户信息保存到vuex
 						this.$store.commit(UPDATE_USER_INFO, result.data);
 						//跳转到Tab的页面需要用这个API
 						uni.switchTab({
-						    url: '/pages/component/Message'
+						    url: '/pages/Message'
 						});
 						//本地存储用户信息
 						uni.setStorage({

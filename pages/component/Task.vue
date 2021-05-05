@@ -4,9 +4,8 @@
 		:title="item.areaName"  mode="basic"  :is-shadow="true"  :extra="item.date"  >
 		    {{item.message}}
 				<view class="imgContent">
-					<cover-image class="img" src="/static/1.jpg" @click="previewImg('/static/1.jpg')"></cover-image>
-					<cover-image class="img" src="/static/2.jpg"></cover-image>
-					<cover-image class="img" src="/static/3.jpg"></cover-image>
+						<cover-image v-for="img in item.imgs" :key="img"
+						class="img" :src="img" @click="previewImg(img)"></cover-image>
 				</view>
 		</uni-card>
 	</view>
@@ -18,25 +17,36 @@
 	export default {
 		data() {
 			return {
-				user: {}
+				
 			}
 		},
-		mounted() {
-			const value = uni.getStorageSync('userInfo');
-			if (value) {
-				// console.log(value)
-				this.user = value;
-			}
+		created() {
+			this.$store.dispatch('getMessageInfo');
+			//更新用户信息
+			this.$store.dispatch('getUserInfo');
 		},
 		computed: {
-			...mapState(['messageList']),
+			...mapState(['messageList', 'userInfo']),
 			//反转数组才能让数组第一条是最新的信息
 			reverseList() {
 				return this.messageList.slice().reverse();
 			},
 			//职工的记录(注意是反转后的)
 			workerRec() {
-				return this.reverseList.filter(item => item.workerName === this.user.username);
+				return this.reverseList.filter(item => item.workerName === this.userInfo.username);
+			}
+		},
+		methods: {
+			//点击放大图片（预览）
+			previewImg(url) {
+				let imgArray = [];
+				
+				// 预览单张图片
+				imgArray[0] = url;
+				uni.previewImage({
+					current:0,
+					urls:imgArray
+				})
 			}
 		}
 	}

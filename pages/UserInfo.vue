@@ -2,12 +2,12 @@
 	<view class="warpper">
 		<view class="header">
 			<view class="img-warp">
-				<img :src="imgSrc" alt="">
+				<img src="http://121.41.45.147:5000/public/imgs/header.png" alt="">
 			</view>
 			<view class="header-text">
-				<view class="username">用户名：{{this.user.username}}</view>
+				<view class="username">用户名：{{this.userInfo.username}}</view>
 				<!-- <view class="permission">职务：职工</view> -->
-				<view class="status">状态：{{this.user.status !== 'free' ? '处理任务中' : '空闲'}}</view>
+				<view class="status">状态：{{this.userInfo.status !== 'free' ? '处理任务中' : '空闲'}}</view>
 			</view>
 		</view>
 		
@@ -49,27 +49,16 @@
 	export default {
 		data() {
 			return {
-				imgSrc: require('../static/header.png'),
-				user: {}
+				
 			}
 		},
-		mounted() {
-			// uni.getStorage({
-			//     key: 'userInfo',
-			//     success: function (res) {
-			// 			console.log(res.data)
-			// 			this.user = res.data;
-			//     }
-			// });
+		created() {
+			//更新信息和用户列表
 			this.$store.dispatch('getMessageInfo');
-			const value = uni.getStorageSync('userInfo');
-			if (value) {
-				// console.log(value)
-				this.user = value;
-			}
+			this.$store.dispatch('getUserInfo');
 		},
 		methods: {
-			//修改密码
+			//跳转页面
 			naviTo(url) {
 				uni.navigateTo({
 					url,
@@ -88,14 +77,14 @@
 			}
 		},
 		computed: {
-			...mapState(['messageList']),
+			...mapState(['messageList', 'userInfo']),
 			//反转数组才能让数组第一条是最新的信息
 			reverseList() {
 				return this.messageList.slice().reverse();
 			},
 			//职工的记录(注意是反转后的)
 			workerRec() {
-				return this.reverseList.filter(item => item.workerName === this.user.username);
+				return this.reverseList.filter(item => item.workerName === this.userInfo.username);
 			},
 			//职工灌溉任务次数
 			waterNum() {

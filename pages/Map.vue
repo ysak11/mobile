@@ -12,6 +12,8 @@
 
 
 <script>
+	import {mapState} from 'vuex';
+	
 	export default {
 		data() {
 			return {
@@ -28,7 +30,10 @@
 			}
 		},
 		mounted() {
-
+			this.$store.dispatch('getAreaInfo');
+		},
+		computed: {
+			...mapState(['areaList'])
 		},
 		methods: {
 			test() {
