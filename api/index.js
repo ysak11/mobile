@@ -7,6 +7,9 @@ const BASEURL = 'http://121.41.45.147:5000';
 //请求区域信息
 export const reqAreaInfo = () => request(BASEURL + '/area/list');
 
+//更新水量
+export const reqWaterVal = (id, val) => request(BASEURL + '/area/updateWater', {id, val}, 'POST');
+
 // 发送登录请求
 export const reqLogin = (username, password) => request(BASEURL + '/user/login', {username, password}, 'POST');
 
@@ -33,3 +36,6 @@ export const reqConfirm = (id, password) => request(BASEURL + '/user/password', 
 
 //修改密码
 export const reqModifyPassword = (id, password) => request(BASEURL + '/user/modify', {id, password}, 'POST');
+
+//获取设备列表
+export const reqDeviceList = () => request(BASEURL + '/device/list');

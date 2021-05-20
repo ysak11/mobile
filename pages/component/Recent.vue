@@ -4,8 +4,8 @@
 		:title="item.areaName"  mode="basic"  :is-shadow="true"  :extra="item.date"  >
 		    {{item.message}}
 				<view class="imgContent">
-						<cover-image v-for="img in item.imgs" :key="img"
-						class="img" :src="img" @click="previewImg(img)"></cover-image>
+						<img v-for="img in item.imgs" :key="img"
+						class="img" :src="img" @click="previewImg(img)"></img>
 				</view>
 		</uni-card>
 	</view>

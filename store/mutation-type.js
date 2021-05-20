@@ -6,3 +6,6 @@ export const UPDATE_USER_INFO = 'update_user_info';
 
 //更新信息列表
 export const UPDATE_MESSAGE_INFO = 'update_message_info';
+
+//更新设备列表
+export const UPDATE_DEVICE_INFO = 'update_device_info';

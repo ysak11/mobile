@@ -4,5 +4,7 @@ export default {
 	//用户信息
 	userInfo: {},
 	//信息列表
-	messageList: []
+	messageList: [],
+	//设备列表
+	deviceList: []
 }

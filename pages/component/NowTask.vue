@@ -4,8 +4,8 @@
 			<uni-card :title="solving.areaName"  mode="basic"  :is-shadow="true"  :extra="solving.date"  >
 				 {{solving.message}}
 				<view class="imgContent"> 
-						<cover-image v-for="img in solving.imgs" :key="img"
-						class="img" :src="img" @click="previewImg(img)"></cover-image>
+						<img v-for="img in solving.imgs" :key="img"
+						class="img" :src="img" @click="previewImg(img)"></img>
 				</view>
 					
 					<view class="finished">

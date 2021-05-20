@@ -1,10 +1,11 @@
 import {
 	UPDATE_AREA_INFO,
 	UPDATE_MESSAGE_INFO,
-	UPDATE_USER_INFO
+	UPDATE_USER_INFO,
+	UPDATE_DEVICE_INFO
 } from './mutation-type.js'
 
-import {reqAreaInfo, reqMessageInfo, reqUserInfo} from '@/api';
+import {reqAreaInfo, reqMessageInfo, reqUserInfo, reqDeviceList} from '@/api';
 
 export default {
 	//异步获取区域列表信息
@@ -36,5 +37,15 @@ export default {
 			const data = result.data;
 			commit(UPDATE_USER_INFO, data);
 		}
-	}
+	},
+	
+	//异步获取设备信息
+	async getDeviceInfo({commit}) {
+		let result = await reqDeviceList();
+		result = result.data;
+		if(result.status === 0) {
+			const list = result.data;
+			commit(UPDATE_DEVICE_INFO, list);
+		}
+	},
 }

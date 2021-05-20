@@ -1,5 +1,5 @@
 //将小于10的数字前面加个0
-function twoFix(num) {
+export function twoFix(num) {
   let temp = num;
   if(parseInt(temp) < 10) {
     temp = '0' + temp;
