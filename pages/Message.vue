@@ -12,7 +12,8 @@
 						    <view class="content">
 						        	<view><text class="title">种类： </text>{{item.type}}</view>
 						    			<view><text class="title">具体植株： </text>{{item.plant}}</view>
-						    			<view><text class="title">区域水量： </text>{{item.waterQuantity}}</view>
+						    			<view><text class="title">区域水量： </text>
+											<text   :class="{'warn':parseInt(item.waterQuantity) < parseInt(item.warnValue)}">{{item.waterQuantity}}</text></view>
 						    			<view><text class="title">预警水量： </text>{{item.warnValue}}</view>
 											<view><text class="title">灌溉设备： </text> <text :class="{'warn':item.equip === '暂无'}">{{item.equip}}</text></view>
 						    		<!-- <view class="status">
